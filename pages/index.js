@@ -1,13 +1,8 @@
 import Head from 'next/head';
 import { Categories, PostCards, Widgets } from '../components/zindex';
+import { getPosts } from '../services/index'
 
-
-const posts = [
-  {id: 1, name: "Mern Stack Praktikum", excerpt: "MangoDB, ExpressJs, ReactJs, NodeJs"},
-  {id:2, name: "Full Stack Python", excerpt: "Python, Django, Flask, PostgreSql"}
-]
-
-export default function Home() {
+export default function Home({posts}) {
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -16,19 +11,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
-        <div className='lg:col-span-8 col-span-1'>
-          {posts.map(post => (<PostCards post={post} key={post.id} />))}
+        <div className='lg:col-span-4 col-span-1'>
+          <div className='lg:sticky relative top-8'>
+            <div className='lg:sticky relative top-8'>
+              <Widgets />
+              <Categories />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className='lg:col-span-4 col-span-1'>
-        <div className='lg:sticky relative top-8'>
-          <Widgets />
-          <Categories />
+        <div className='lg:col-span-8 col-span-1'>
+          {posts.map(post => (<PostCards post={post.node} key={post.id} />))}
         </div>
       </div>
     </div>
   )
 }
 
-
+export async function getStaticProps() {
+  const posts = (await getPosts()) || []
+  return {
+    props: { posts }
+  }
+}
 
