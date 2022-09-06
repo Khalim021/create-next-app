@@ -1,8 +1,15 @@
 import React from 'react'
-import { Widgets, Categories, Author, PostDetails, CommentForm, Comments } from '../../components/zindex'
+import { Widgets, Categories, Author, PostDetails, CommentForm, Comments, Loader } from '../../components/zindex'
 import { getPostDetails, getPosts } from '../../services'
+import { useRouter } from 'next/router'
 
 const PostDetail = ({post}) => {
+  const router = useRouter()
+
+  if(router.isFallback) {
+    return <Loader />
+  }
+
   return (
     <div className='container mx-auto px-10 mb-8'>
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>

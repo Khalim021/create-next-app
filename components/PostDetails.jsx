@@ -31,8 +31,6 @@ const PostDetails = ({post}) => {
   }
 
 
-
-
   return (
     <div className='bg-white rounded-lg shadow-lg lg:p-8 pb-12 mb-12'>
       <div className='relative overflow-hidden shadow-md mb-6'>
@@ -72,3 +70,5 @@ const PostDetails = ({post}) => {
 }
 
 export default PostDetails
+
+
